@@ -1,0 +1,276 @@
+﻿<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="AirDefenseSimulation.Views.ResultsWindow"
+        Title="Simulation Results"
+        Width="1100" Height="700"
+        Background="#0f172a"
+        CanResize="False"
+        WindowStartupLocation="CenterOwner">
+
+    <Border Background="#1e293b" CornerRadius="15" 
+            Margin="20" Padding="25">
+        <Grid RowDefinitions="Auto,*,Auto">
+            
+            <!-- Header -->
+            <StackPanel Grid.Row="0" Spacing="8" Margin="0,0,0,20">
+                <TextBlock Text="SIMULATION COMPLETE" 
+                           FontSize="32" FontWeight="Bold"
+                           Foreground="#06b6d4" 
+                           HorizontalAlignment="Center"/>
+                
+                <TextBlock Text="Final Results &amp; Statistics" 
+                           FontSize="14"
+                           Foreground="#94a3b8" 
+                           HorizontalAlignment="Center"/>
+            </StackPanel>
+
+            <!-- Main Content - 2 Spalten Layout -->
+            <Grid Grid.Row="1" ColumnDefinitions="*,*" ColumnSpacing="20">
+                
+                <!-- LINKE SPALTE -->
+                <StackPanel Grid.Column="0" Spacing="15">
+                    
+                    <!-- Score Section -->
+                    <Border Background="#0f172a" CornerRadius="10" Padding="20">
+                        <StackPanel Spacing="12">
+                            <TextBlock Text="FINAL SCORE" 
+                                       FontSize="18" FontWeight="Bold"
+                                       Foreground="#facc15"
+                                       HorizontalAlignment="Center"/>
+                            
+                            <ProgressBar Name="FinalScoreBar" 
+                                         Minimum="0" Maximum="100"
+                                         Value="75"
+                                         Height="20"
+                                         Foreground="#22c55e"
+                                         Background="#334155"
+                                         CornerRadius="10"/>
+                            
+                            <TextBlock Name="FinalScoreText" 
+                                       Text="75 / 100 Points"
+                                       FontSize="26" FontWeight="Bold"
+                                       Foreground="#facc15"
+                                       HorizontalAlignment="Center"/>
+                            
+                            <TextBlock Name="FinalRating" 
+                                       Text="⭐⭐⭐ GOOD DEFENSE"
+                                       FontSize="16"
+                                       Foreground="#06b6d4"
+                                       HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- City Statistics -->
+                    <Border Background="#0f172a" CornerRadius="10" Padding="15">
+                        <StackPanel Spacing="10">
+                            <TextBlock Text="CITY STATUS" 
+                                       FontSize="16" FontWeight="Bold"
+                                       Foreground="#10b981"/>
+                            
+                            <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto">
+                                <TextBlock Grid.Row="0" Grid.Column="0" 
+                                           Text="Initial Population:" 
+                                           Foreground="#94a3b8" FontSize="12"/>
+                                <TextBlock Grid.Row="0" Grid.Column="1" 
+                                           Name="TxtInitialPop" Text="100" 
+                                           FontWeight="Bold" Foreground="White" FontSize="12"/>
+                                
+                                <TextBlock Grid.Row="1" Grid.Column="0" 
+                                           Text="Survivors:" 
+                                           Foreground="#94a3b8" FontSize="12" Margin="0,6,0,0"/>
+                                <TextBlock Grid.Row="1" Grid.Column="1" 
+                                           Name="TxtSurvivors" Text="80" 
+                                           FontWeight="Bold" Foreground="#22c55e" FontSize="12" Margin="0,6,0,0"/>
+                                
+                                <TextBlock Grid.Row="2" Grid.Column="0" 
+                                           Text="Casualties:" 
+                                           Foreground="#94a3b8" FontSize="12" Margin="0,6,0,0"/>
+                                <TextBlock Grid.Row="2" Grid.Column="1" 
+                                           Name="TxtCasualties" Text="20" 
+                                           FontWeight="Bold" Foreground="#dc2626" FontSize="12" Margin="0,6,0,0"/>
+                                
+                                <TextBlock Grid.Row="3" Grid.Column="0" 
+                                           Text="People in Bunkers:" 
+                                           Foreground="#94a3b8" FontSize="12" Margin="0,6,0,0"/>
+                                <TextBlock Grid.Row="3" Grid.Column="1" 
+                                           Name="TxtInBunkers" Text="30" 
+                                           FontWeight="Bold" Foreground="#facc15" FontSize="12" Margin="0,6,0,0"/>
+                                
+                                <TextBlock Grid.Row="4" Grid.Column="0" 
+                                           Text="Total Evacuated:" 
+                                           Foreground="#94a3b8" FontSize="12" Margin="0,6,0,0"/>
+                                <TextBlock Grid.Row="4" Grid.Column="1" 
+                                           Name="TxtEvacuated" Text="50" 
+                                           FontWeight="Bold" Foreground="#f59e0b" FontSize="12" Margin="0,6,0,0"/>
+                                
+                                <TextBlock Grid.Row="5" Grid.Column="0" 
+                                           Text="Buildings Destroyed:" 
+                                           Foreground="#94a3b8" FontSize="12" Margin="0,6,0,0"/>
+                                <TextBlock Grid.Row="5" Grid.Column="1" 
+                                           Name="TxtBuildingsDestroyed" Text="5" 
+                                           FontWeight="Bold" Foreground="#ef4444" FontSize="12" Margin="0,6,0,0"/>
+                                
+                                <TextBlock Grid.Row="6" Grid.Column="0" 
+                                           Text="City Health:" 
+                                           Foreground="#94a3b8" FontSize="12" Margin="0,6,0,0"/>
+                                <TextBlock Grid.Row="6" Grid.Column="1" 
+                                           Name="TxtCityHealth" Text="85%" 
+                                           FontWeight="Bold" Foreground="#10b981" FontSize="12" Margin="0,6,0,0"/>
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Defense Performance & Threats nebeneinander -->
+                    <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
+                        
+                        <!-- Defense Performance -->
+                        <Border Grid.Column="0" Background="#0f172a" CornerRadius="10" Padding="15">
+                            <StackPanel Spacing="10">
+                                <TextBlock Text="DEFENSE" 
+                                           FontSize="14" FontWeight="Bold"
+                                           Foreground="#06b6d4"/>
+                                
+                                <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto,Auto">
+                                    <TextBlock Grid.Row="0" Grid.Column="0" 
+                                               Text="Missiles Fired:" 
+                                               Foreground="#94a3b8" FontSize="11"/>
+                                    <TextBlock Grid.Row="0" Grid.Column="1" 
+                                               Name="TxtMissilesFired" Text="25" 
+                                               FontWeight="Bold" Foreground="#06b6d4" FontSize="11"/>
+                                    
+                                    <TextBlock Grid.Row="1" Grid.Column="0" 
+                                               Text="Interceptions:" 
+                                               Foreground="#94a3b8" FontSize="11" Margin="0,5,0,0"/>
+                                    <TextBlock Grid.Row="1" Grid.Column="1" 
+                                               Name="TxtInterceptions" Text="20" 
+                                               FontWeight="Bold" Foreground="#10b981" FontSize="11" Margin="0,5,0,0"/>
+                                    
+                                    <TextBlock Grid.Row="2" Grid.Column="0" 
+                                               Text="Rate:" 
+                                               Foreground="#94a3b8" FontSize="11" Margin="0,5,0,0"/>
+                                    <TextBlock Grid.Row="2" Grid.Column="1" 
+                                               Name="TxtInterceptionRate" Text="80%" 
+                                               FontWeight="Bold" Foreground="#22c55e" FontSize="11" Margin="0,5,0,0"/>
+                                </Grid>
+                            </StackPanel>
+                        </Border>
+
+                        <!-- Threat Breakdown -->
+                        <Border Grid.Column="1" Background="#0f172a" CornerRadius="10" Padding="15">
+                            <StackPanel Spacing="10">
+                                <TextBlock Text="THREATS" 
+                                           FontSize="14" FontWeight="Bold"
+                                           Foreground="#ef4444"/>
+                                
+                                <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto,Auto">
+                                    <TextBlock Grid.Row="0" Grid.Column="0" 
+                                               Text="Fighters:" 
+                                               Foreground="#94a3b8" FontSize="11"/>
+                                    <TextBlock Grid.Row="0" Grid.Column="1" 
+                                               Name="TxtFighters" Text="8" 
+                                               FontWeight="Bold" Foreground="White" FontSize="11"/>
+                                    
+                                    <TextBlock Grid.Row="1" Grid.Column="0" 
+                                               Text="Missiles:" 
+                                               Foreground="#94a3b8" FontSize="11" Margin="0,5,0,0"/>
+                                    <TextBlock Grid.Row="1" Grid.Column="1" 
+                                               Name="TxtMissiles" Text="12" 
+                                               FontWeight="Bold" Foreground="White" FontSize="11" Margin="0,5,0,0"/>
+                                    
+                                    <TextBlock Grid.Row="2" Grid.Column="0" 
+                                               Text="Drones:" 
+                                               Foreground="#94a3b8" FontSize="11" Margin="0,5,0,0"/>
+                                    <TextBlock Grid.Row="2" Grid.Column="1" 
+                                               Name="TxtDrones" Text="5" 
+                                               FontWeight="Bold" Foreground="White" FontSize="11" Margin="0,5,0,0"/>
+                                </Grid>
+                            </StackPanel>
+                        </Border>
+                    </Grid>
+
+                </StackPanel>
+                
+                <!-- RECHTE SPALTE -->
+                <StackPanel Grid.Column="1" Spacing="15">
+                    
+                    <!-- Timeline Chart -->
+                    <Border Background="#0f172a" CornerRadius="10" Padding="15">
+                        <StackPanel Spacing="10">
+                            <TextBlock Text="TIMELINE - BATTLE PROGRESSION" 
+                                       FontSize="16" FontWeight="Bold"
+                                       Foreground="#8b5cf6"/>
+                            
+                            <Border Background="#1e293b" CornerRadius="6" Padding="10" Height="200">
+                                <Canvas Name="TimelineCanvas" Width="480" Height="180"/>
+                            </Border>
+                            
+                            <!-- Timeline Legend -->
+                            <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto">
+                                <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" Spacing="5">
+                                    <Ellipse Width="8" Height="8" Fill="#ef4444"/>
+                                    <TextBlock Text="Active Threats" Foreground="#94a3b8" FontSize="10"/>
+                                </StackPanel>
+                                <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal" Spacing="5">
+                                    <Ellipse Width="8" Height="8" Fill="#10b981"/>
+                                    <TextBlock Text="Interceptions" Foreground="#94a3b8" FontSize="10"/>
+                                </StackPanel>
+                                <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal" Spacing="5" Margin="0,3,0,0">
+                                    <Ellipse Width="8" Height="8" Fill="#8b5cf6"/>
+                                    <TextBlock Text="Casualties" Foreground="#94a3b8" FontSize="10"/>
+                                </StackPanel>
+                                <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" Spacing="5" Margin="0,3,0,0">
+                                    <Ellipse Width="8" Height="8" Fill="#06b6d4"/>
+                                    <TextBlock Text="City Health" Foreground="#94a3b8" FontSize="10"/>
+                                </StackPanel>
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Key Events Timeline -->
+                    <Border Background="#0f172a" CornerRadius="10" Padding="15">
+                        <StackPanel Spacing="10">
+                            <Grid ColumnDefinitions="*,Auto">
+                                <TextBlock Grid.Column="0" Text="KEY EVENTS LOG" 
+                                           FontSize="16" FontWeight="Bold"
+                                           Foreground="#f59e0b"/>
+                                <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="5">
+                                    <TextBlock Text="Zeit" FontSize="14"/>
+                                    <TextBlock Name="TxtDuration" Text="5:23" 
+                                               FontWeight="Bold" Foreground="#8b5cf6" FontSize="14"/>
+                                </StackPanel>
+                            </Grid>
+                            
+                            <ScrollViewer MaxHeight="170">
+                                <StackPanel Name="EventsListPanel" Spacing="6">
+                                    <TextBlock Text="No events recorded" 
+                                               Foreground="#94a3b8" 
+                                               FontSize="11"
+                                               FontStyle="Italic"/>
+                                </StackPanel>
+                            </ScrollViewer>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Stats Summary -->
+                    <Border Background="#0f172a" CornerRadius="10" Padding="15">
+                        <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto">
+                            <StackPanel Grid.Row="0" Grid.Column="0">
+                                <TextBlock Text="Missed Threats" Foreground="#94a3b8" FontSize="10"/>
+                                <TextBlock Name="TxtMissed" Text="5" 
+                                           FontWeight="Bold" Foreground="#dc2626" FontSize="16"/>
+                            </StackPanel>
+                            <StackPanel Grid.Row="0" Grid.Column="1">
+                                <TextBlock Text="Total Threats" Foreground="#94a3b8" FontSize="10"/>
+                                <TextBlock Name="TxtTotalThreats" Text="25" 
+                                           FontWeight="Bold" Foreground="#ef4444" FontSize="16"/>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+
+                </StackPanel>
+                
+            </Grid>
+
+        </Grid>
+    </Border>
+</Window>

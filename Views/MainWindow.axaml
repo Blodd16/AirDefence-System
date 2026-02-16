@@ -1,0 +1,264 @@
+﻿<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="clr-namespace:AirDefenseSimulation.Controls"
+        xmlns:vm="clr-namespace:AirDefenseSimulation.ViewModels"
+        x:Class="AirDefenseSimulation.Views.MainWindow"
+        x:DataType="vm:MainViewModel"
+        Title="Air Defense System - Simulation"
+        Width="1200" Height="800"
+        Background="#0f172a">
+
+    <Grid RowDefinitions="Auto,*" Margin="10">
+        
+        <Border Grid.Row="0" Background="#1e293b" CornerRadius="10"
+                Padding="18" Margin="0,0,0,12">
+            <StackPanel Orientation="Horizontal" Spacing="10" HorizontalAlignment="Center">
+                <TextBlock Text="" FontSize="30"/>
+                <TextBlock Text="Air Defense System — Simulation"
+                           FontSize="26" FontWeight="Bold"
+                           Foreground="#06b6d4"/>
+            </StackPanel>
+
+        </Border>
+         <Border Grid.Column="2" Background="#334155" CornerRadius="8"
+                Padding="15,8" Margin="10,0,0,0">
+            <StackPanel Orientation="Horizontal" Spacing="8">
+                <TextBlock Text="0" FontSize="20" VerticalAlignment="Center"/>
+                <StackPanel>
+                    <TextBlock Text="Elapsed Time" 
+                               FontSize="10" Foreground="#94a3b8"/>
+                    <TextBlock Text="{Binding ElapsedTimeFormatted}" 
+                               FontSize="18" FontWeight="Bold" 
+                               Foreground="#06b6d4"/>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+
+        <Grid Grid.Row="1" ColumnDefinitions="*,330">
+            
+            <Border Grid.Column="0" Background="#1e293b" CornerRadius="10"
+                    Margin="0,0,12,0" ClipToBounds="True">
+                <Grid RowDefinitions="*,Auto">
+                    <controls:SimulationCanvas Name="SimulationCanvas" Grid.Row="0"/>
+
+                    <Border Grid.Row="1" Background="#334155" Padding="14">
+                        <Grid ColumnDefinitions="Auto,Auto,*,Auto" VerticalAlignment="Center">
+                            
+                            <Button Grid.Column="0" Name="PlayPauseButton"
+                                    Click="OnPlayPauseClick"
+                                    Background="#06b6d4" Foreground="White"
+                                    Padding="22,10" Margin="0,0,12,0"
+                                    FontWeight="Bold" CornerRadius="6">
+                                 Start
+                            </Button>
+                            
+                            <Button Grid.Column="1" Content="Reset"
+                                    Click="OnResetClick"
+                                    Background="#475569" Foreground="White"
+                                    Padding="22,10" Margin="0,0,12,0"
+                                    FontWeight="Bold" CornerRadius="6"/>
+
+                            <StackPanel Grid.Column="3" Orientation="Horizontal" Spacing="10">
+                                <TextBlock Text="Speed:"
+                                           VerticalAlignment="Center" Foreground="#e2e8f0"/>
+                                
+                                <Slider Name="SpeedSlider" Width="160" Minimum="0.1" Maximum="3"
+                                        Value="{Binding SimulationSpeed}"/>
+                                
+                                <TextBlock Text="{Binding SimulationSpeed, StringFormat='{}{0:F1}x'}"
+                                           Foreground="#06b6d4" FontWeight="Bold"
+                                           VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+                </Grid>
+            </Border>
+
+            <ScrollViewer Grid.Column="1">
+                <StackPanel Spacing="12">
+
+                    <Border Background="#1e293b" CornerRadius="10" Padding="16">
+                        <StackPanel Spacing="12">
+
+                <Grid ColumnDefinitions="*,Auto" VerticalAlignment="Center">
+                    <TextBlock Text="Analytics" FontSize="17"
+                               FontWeight="Bold" Foreground="#06b6d4"
+                               VerticalAlignment="Center"/>
+                    <ComboBox Name="ChartTypeCombo" Width="120"
+                              SelectedIndex="0" SelectionChanged="OnChartTypeChanged"
+                              HorizontalAlignment="Right">
+                        <ComboBoxItem Content="Bar"/>
+                        <ComboBoxItem Content="Pie"/>
+                    </ComboBox>
+                </Grid>
+
+                            <Border Background="#0f172a" Height="260" CornerRadius="6">
+                                <Canvas Name="ChartCanvas" Width="300" Height="260"/>
+                            </Border>
+
+                            <StackPanel Spacing="6">
+                                <StackPanel Orientation="Horizontal" Spacing="6">
+                                    <Border Background="#10b981" Width="14" Height="14" CornerRadius="2"/>
+                                    <TextBlock Text="Intercepted" Foreground="#94a3b8" FontSize="11"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Spacing="6">
+                                    <Border Background="#ef4444" Width="14" Height="14" CornerRadius="2"/>
+                                    <TextBlock Text="City Hits" Foreground="#94a3b8" FontSize="11"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Spacing="6">
+                                    <Border Background="#f59e0b" Width="14" Height="14" CornerRadius="2"/>
+                                    <TextBlock Text="Evacuated" Foreground="#94a3b8" FontSize="11"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Spacing="6">
+                                    <Border Background="#8b5cf6" Width="14" Height="14" CornerRadius="2"/>
+                                    <TextBlock Text="Casualties" Foreground="#94a3b8" FontSize="11"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Background="#1e293b" CornerRadius="10" Padding="18">
+                        <StackPanel Spacing="10">
+                            
+                            <TextBlock Text=" City Status" FontSize="17"
+                                       FontWeight="Bold" Foreground="#06b6d4"/>
+
+                            <StackPanel Spacing="6">
+                                <Grid ColumnDefinitions="*,Auto">
+                                    <TextBlock Grid.Column="0" Text=" Population" Foreground="#94a3b8"/>
+                                    <TextBlock Grid.Column="1" Text="{Binding PopulationCount}" FontWeight="Bold" Foreground="White"/>
+                                </Grid>
+
+                                <Grid ColumnDefinitions="*,Auto">
+                                    <TextBlock Grid.Column="0" Text=" In Bunkers" Foreground="#94a3b8"/>
+                                    <TextBlock Grid.Column="1" Text="{Binding PeopleInBunkers}" FontWeight="Bold" Foreground="#facc15"/>
+                                </Grid>
+
+                                <Grid ColumnDefinitions="*,Auto">
+                                    <TextBlock Grid.Column="0" Text=" Evacuated" Foreground="#94a3b8"/>
+                                    <TextBlock Grid.Column="1" Text="{Binding EvacuatedCount}" FontWeight="Bold" Foreground="#f59e0b"/>
+                                </Grid>
+
+                                <Grid ColumnDefinitions="*,Auto">
+                                    <TextBlock Grid.Column="0" Text=" Casualties" Foreground="#94a3b8"/>
+                                    <TextBlock Grid.Column="1" Text="{Binding CasualtiesCount}" FontWeight="Bold" Foreground="#dc2626"/>
+                                </Grid>
+
+                                <Grid ColumnDefinitions="*,Auto">
+                                    <TextBlock Grid.Column="0" Text=" Buildings Lost" Foreground="#94a3b8"/>
+                                    <TextBlock Grid.Column="1" Text="{Binding BuildingsDestroyed}" FontWeight="Bold" Foreground="#ef4444"/>
+                                </Grid>
+
+                                <TextBlock Text=" City Health" Foreground="#94a3b8"/>
+
+                                <ProgressBar Minimum="0" Maximum="100"
+                                             Value="{Binding CityHealthPercentage}"
+                                             Height="10"
+                                             Foreground="#22c55e"
+                                             Background="#334155"/>
+
+                                <TextBlock Text="{Binding CityHealthPercentage, StringFormat='{}{0:F0}%'}"
+                                           HorizontalAlignment="Right"
+                                           FontWeight="Bold" Foreground="#10b981"/>
+
+                                <Grid ColumnDefinitions="*,Auto">
+                                    <TextBlock Grid.Column="0" Text="⚠️ Missed Threats" Foreground="#94a3b8"/>
+                                    <TextBlock Grid.Column="1" Text="{Binding ThreatsMissed}" FontWeight="Bold" Foreground="#dc2626"/>
+                                </Grid>
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Background="#1e293b" CornerRadius="10" Padding="18">
+                        <StackPanel Spacing="10">
+                            <TextBlock Text=" Defense Performance" FontSize="17"
+                                       FontWeight="Bold" Foreground="#06b6d4"/>
+
+                            <StackPanel Spacing="6">
+                                <Grid ColumnDefinitions="*,Auto">
+                                    <TextBlock Grid.Column="0" Text="Rockets Capacity:" Foreground="#94a3b8"/>
+                                    <TextBlock Grid.Column="1" Text="{Binding DefenseRocketCapacity}" FontWeight="Bold" Foreground="#06b6d4"/>
+                                </Grid>
+
+                                <Grid ColumnDefinitions="*,Auto">
+                                    <TextBlock Grid.Column="0" Text="Missiles Fired:" Foreground="#94a3b8"/>
+                                    <TextBlock Grid.Column="1" Text="{Binding MissilesFired}" FontWeight="Bold" Foreground="#06b6d4"/>
+                                </Grid>
+
+                                <Grid ColumnDefinitions="*,Auto">
+                                    <TextBlock Grid.Column="0" Text="Intercepted:" Foreground="#94a3b8"/>
+                                    <TextBlock Grid.Column="1" Text="{Binding SuccessfulInterceptions}" FontWeight="Bold" Foreground="#22c55e"/>
+                                </Grid>
+
+                                <Grid ColumnDefinitions="*,Auto">
+                                    <TextBlock Grid.Column="0" Text="Active Threats:" Foreground="#94a3b8"/>
+                                    <TextBlock Grid.Column="1" Text="{Binding ActiveObjects}" FontWeight="Bold" Foreground="#ef4444"/>
+                                </Grid>
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Background="#1e293b" CornerRadius="10" Padding="18">
+                        <StackPanel Spacing="10">
+                            <TextBlock Text=" Advanced Parameters" FontSize="17"
+                                       FontWeight="Bold" Foreground="#06b6d4"/>
+
+                            <TextBlock Text="Fighters(0-15) :" Foreground="#94a3b8" FontSize="11"/>
+                            <NumericUpDown x:Name="FightersUpDown" 
+                                          Value="{Binding EnemyFighterCount}" 
+                                          Minimum="0" Maximum="15" FormatString="0"/>
+
+                            <TextBlock Text="Missiles(0-20):" Foreground="#94a3b8" FontSize="11"/>
+                            <NumericUpDown x:Name="MissilesUpDown" 
+                                          Value="{Binding EnemyMissileCount}" 
+                                          Minimum="0" Maximum="20" FormatString="0"/>
+
+                            <TextBlock Text="Drones(0-15):" Foreground="#94a3b8" FontSize="11"/>
+                            <NumericUpDown x:Name="DronesUpDown" 
+                                          Value="{Binding EnemyDroneCount}" 
+                                          Minimum="0" Maximum="15" FormatString="0"/>
+
+                            <TextBlock Text="Population(10-300):" Foreground="#94a3b8" FontSize="11"/>
+                            <NumericUpDown x:Name="PopulationUpDown" 
+                                          Value="{Binding PopulationCount}" 
+                                          Minimum="10" Maximum="300" FormatString="0"
+                                          Increment="10"/>
+
+                            <TextBlock Text="Defense Rocket Capacity(5-50):" Foreground="#94a3b8" FontSize="11"/>
+                            <NumericUpDown x:Name="CapacityUpDown" 
+                                          Value="{Binding DefenseRocketCapacity}" 
+                                          Minimum="5" Maximum="50" FormatString="0"/>
+
+                            <TextBlock Text="Detection Radius(100-280):" Foreground="#94a3b8" FontSize="11"/>
+                            <NumericUpDown x:Name="DetectionUpDown"
+                                           Value="{Binding DetectionRadius}" 
+                                          Minimum="100" Maximum="280"
+                                          Increment="10" FormatString="0"/>
+
+                            <TextBlock Text="Interception Radius(50-280):" Foreground="#94a3b8" FontSize="11"/>
+                            <NumericUpDown x:Name="InterceptionUpDown" 
+                                          Value="{Binding InterceptionRadius}" 
+                                          Minimum="50" Maximum="280"
+                                          Increment="10" FormatString="0"/>
+
+                            <TextBlock Text="Distribution:" Foreground="#94a3b8" FontSize="11"/>
+                            <ComboBox SelectedIndex="0" Name="DistributionCombo">
+                                <ComboBoxItem Content="Normal"/>
+                                <ComboBoxItem Content="Uniform"/>
+                                <ComboBoxItem Content="Exponential"/>
+                            </ComboBox>
+
+                            <Button Content=" Apply Settings"
+                                   Click="OnApplySettingsClick"
+                                   Background="#059669" Foreground="White"
+                                   HorizontalAlignment="Stretch"
+                                   Padding="0,10" FontWeight="Bold"
+                                   CornerRadius="6" Margin="0,10,0,0"/>
+                        </StackPanel>
+                    </Border>
+
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
+    </Grid>
+</Window>
