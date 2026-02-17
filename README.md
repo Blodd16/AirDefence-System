@@ -334,7 +334,6 @@ air-defense-simulation/
 |---|---|---|
 | **.NET** | 8.0 | Laufzeitumgebung |
 | **C#** | 12.0 | Programmiersprache |
-| **WPF** | – | UI-Framework |
 | **MVVM** | – | Architektur-Pattern |
 | **xUnit** | 2.6 | Unit-Testing |
 
